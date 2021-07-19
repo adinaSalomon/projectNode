@@ -2,7 +2,7 @@ const express = require('express');
 const cookiParser = require('cookie-parser');
 const logger = require('morgan');
 const userRouter = require('./routes/user')
-const port = 3000;
+const port = 3001;
 const mongoose = require('mongoose');
 const uri = "mongodb://localhost:27017/petshop";
 mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true });

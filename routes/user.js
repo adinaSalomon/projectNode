@@ -2,10 +2,10 @@ const express=require('express');
 const Pets = require('../models/Pets');
  var router=express.Router();
 ///יש לי בעיה הוא משום מה באמת מוחק ולא עושה שגיאה
-router.delete('/:id',async function (req, res, next) {
+router.delete('/:id', async function (req, res, next) {
   try {
     await Pets.findByIdAndDelete(req.params.id);
-    res.status(201);
+    res.status(201).send('deleted succcesfuly');
 } catch (error) {
     res.status(500).send(error);
 }
@@ -18,11 +18,10 @@ router.get('/:id',async function (req, res, next){try {
   res.status(500).send(error.message);
 }})
 //כנל פה לא באמת מידכן לי ולא עושה שגיאה
-router.put('updatePet/:id',async function(req,rea,next){
+router.put('/:id', async (req, res, next) => {
   try {
-    const petUpdate = await Petshop.findByIdAndUpdate(req.params.id, req.body);
-    console.log(petUpdate);
-    res.status(200).send('pet update succeed');
+    const petUpdate = await Pets.findByIdAndUpdate(req.params.id, req.body);
+    res.status(200).send(petUpdate);
 } catch (error) {
     res.status(500).send(error);
 }
@@ -37,7 +36,7 @@ router.post('/addalot', function (req, res, next) {
     }
   });
 });
-router.get('/getall', async function (req, res, next) {
+router.get('/', async function (req, res, next) {
   try {
     let pets = await Pets.find();
     res.status(200).json(pets);
@@ -45,7 +44,7 @@ router.get('/getall', async function (req, res, next) {
     res.status(500).send(error.message);
 }
 });
-router.post('/addpet',async function (req, res, next) {
+router.post('/',async function (req, res, next) {
   const pet = new Pets({
     name: req.body.name,
     species: req.body.species,
